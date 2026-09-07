@@ -8,9 +8,9 @@ import (
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
 
-/**
- * Model for initing client
- */
+// Description:
+//
+// Model for initing client
 type Config struct {
 	// accesskey id
 	AccessKeyId *string `json:"accessKeyId,omitempty" xml:"accessKeyId,omitempty"`
@@ -19,26 +19,66 @@ type Config struct {
 	// security token
 	SecurityToken *string `json:"securityToken,omitempty" xml:"securityToken,omitempty"`
 	// http protocol
+	//
+	// example:
+	//
+	// http
 	Protocol *string `json:"protocol,omitempty" xml:"protocol,omitempty"`
 	// read timeout
+	//
+	// example:
+	//
+	// 10
 	ReadTimeout *int `json:"readTimeout,omitempty" xml:"readTimeout,omitempty"`
 	// connect timeout
+	//
+	// example:
+	//
+	// 10
 	ConnectTimeout *int `json:"connectTimeout,omitempty" xml:"connectTimeout,omitempty"`
 	// http proxy
+	//
+	// example:
+	//
+	// http://localhost
 	HttpProxy *string `json:"httpProxy,omitempty" xml:"httpProxy,omitempty"`
 	// https proxy
+	//
+	// example:
+	//
+	// https://localhost
 	HttpsProxy *string `json:"httpsProxy,omitempty" xml:"httpsProxy,omitempty"`
 	// endpoint
+	//
+	// example:
+	//
+	// cs.aliyuncs.com
 	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
 	// proxy white list
+	//
+	// example:
+	//
+	// http://localhost
 	NoProxy *string `json:"noProxy,omitempty" xml:"noProxy,omitempty"`
 	// max idle conns
+	//
+	// example:
+	//
+	// 3
 	MaxIdleConns *int `json:"maxIdleConns,omitempty" xml:"maxIdleConns,omitempty"`
 	// user agent
+	//
+	// example:
+	//
+	// Alibabacloud/1
 	UserAgent *string `json:"userAgent,omitempty" xml:"userAgent,omitempty"`
 	// socks5 proxy
 	Socks5Proxy *string `json:"socks5Proxy,omitempty" xml:"socks5Proxy,omitempty"`
 	// socks5 network
+	//
+	// example:
+	//
+	// TCP
 	Socks5NetWork *string `json:"socks5NetWork,omitempty" xml:"socks5NetWork,omitempty"`
 	// 长链接最大空闲时长
 	MaxIdleTimeMillis *int `json:"maxIdleTimeMillis,omitempty" xml:"maxIdleTimeMillis,omitempty"`
@@ -148,9 +188,74 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 项目成员
+type Member struct {
+	// 用户ID
+	// example:
+	//
+	// 0000461041
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户名称
+	// example:
+	//
+	// 张三
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 登录名
+	// example:
+	//
+	// hpat684@alitest.xyz
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 项目ID
+	// example:
+	//
+	// 00004606871785921985864
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 创建时间
+	// example:
+	//
+	// 2026-05-22 10:18:40
+	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s Member) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Member) GoString() string {
+	return s.String()
+}
+
+func (s *Member) SetUserId(v string) *Member {
+	s.UserId = &v
+	return s
+}
+
+func (s *Member) SetUserName(v string) *Member {
+	s.UserName = &v
+	return s
+}
+
+func (s *Member) SetLoginName(v string) *Member {
+	s.LoginName = &v
+	return s
+}
+
+func (s *Member) SetProjectId(v string) *Member {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *Member) SetGmtCreate(v string) *Member {
+	s.GmtCreate = &v
+	return s
+}
+
 // 访问IaaS层的身份
 type Accessor struct {
 	// Accessor关联的AccessKey
+	// example:
+	//
+	// LTAIyqaeoWfELqMg
 	AccessKey *string `json:"access_key,omitempty" xml:"access_key,omitempty"`
 	// Accessor关联的AccessKey的密钥，加密传输，网关返回后，使用调用方的AccessSecret进行解密
 	AccessSecret *string `json:"access_secret,omitempty" xml:"access_secret,omitempty"`
@@ -161,6 +266,9 @@ type Accessor struct {
 	// Accessor唯一标识
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// Accessor类型(RAM/ACCOUNT)
+	// example:
+	//
+	// RAM
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 }
 
@@ -205,8 +313,14 @@ func (s *Accessor) SetType(v string) *Accessor {
 // 标签实体
 type Tag struct {
 	// 标签类型
+	// example:
+	//
+	// CHANNEL_SCENE
 	TagType *string `json:"tag_type,omitempty" xml:"tag_type,omitempty" require:"true"`
 	// 标签值
+	// example:
+	//
+	// BAASDT_IPAE
 	TagValue *string `json:"tag_value,omitempty" xml:"tag_value,omitempty" require:"true"`
 }
 
@@ -233,10 +347,16 @@ type AccessKey struct {
 	// AccessKey创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// AccessKey唯一标识
+	// example:
+	//
+	// LTAIyqaeoWfELqMg
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// AccessKey的秘钥，加密传输，网关返回后，使用调用方的AccesSecret进行解密
 	Secret *string `json:"secret,omitempty" xml:"secret,omitempty"`
 	// 状态
+	// example:
+	//
+	// ACTIVE
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// AccessKey最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
@@ -280,8 +400,14 @@ type Customer struct {
 	// 企业创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// 企业ID
+	// example:
+	//
+	// 2088xxxxx1
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 企业名称
+	// example:
+	//
+	// 蚂蚁金融云有限公司
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 企业最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
@@ -315,25 +441,91 @@ func (s *Customer) SetUpdateTime(v string) *Customer {
 	return s
 }
 
+// 用户
+type User struct {
+	// 用户ID
+	// example:
+	//
+	// 0000460699
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户名称
+	// example:
+	//
+	// 张三
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 登录名
+	// example:
+	//
+	// xsh@digital-engine.com
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+}
+
+func (s User) String() string {
+	return tea.Prettify(s)
+}
+
+func (s User) GoString() string {
+	return s.String()
+}
+
+func (s *User) SetUserId(v string) *User {
+	s.UserId = &v
+	return s
+}
+
+func (s *User) SetUserName(v string) *User {
+	s.UserName = &v
+	return s
+}
+
+func (s *User) SetLoginName(v string) *User {
+	s.LoginName = &v
+	return s
+}
+
 // 租户
 type Tenant struct {
 	// 蚂蚁通行证签约账户
+	// example:
+	//
+	// antcloud@alipay.com
 	AntAccount *string `json:"ant_account,omitempty" xml:"ant_account,omitempty"`
 	// 蚂蚁通行证uid
+	// example:
+	//
+	// 2088xxxxx1
 	AntUid *string `json:"ant_uid,omitempty" xml:"ant_uid,omitempty"`
 	// 金融云官网:ANTCLOUD,蚂蚁开放平台：ANTOPEN
+	// example:
+	//
+	// ANTCLOUD
 	BusinessOwnerId *string `json:"business_owner_id,omitempty" xml:"business_owner_id,omitempty"`
 	// 租户创建时间，ISO8601格式
 	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
 	// 租户所在的企业的唯一标识
+	// example:
+	//
+	// 2088201881714570
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
 	// 租户描述信息
+	// example:
+	//
+	// the default tenant
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 租户唯一标识
+	// example:
+	//
+	// TSCPDICN
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 租户内部id
+	// example:
+	//
+	// 0000000001
 	InternalId *string `json:"internal_id,omitempty" xml:"internal_id,omitempty"`
 	// 租户显示名称
+	// example:
+	//
+	// myTenant
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 租户最近一次修改时间，ISO8601格式
 	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty"`
@@ -400,14 +592,29 @@ func (s *Tenant) SetUpdateTime(v string) *Tenant {
 // 权限点
 type Action struct {
 	// 权限点ID
+	// example:
+	//
+	// A0000000001
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 权限点名称
+	// example:
+	//
+	// antcloud.xxx.xxx.labelinfo.query
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 类型
+	// example:
+	//
+	// INNER
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 状态
+	// example:
+	//
+	// NORMAL
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 描述
+	// example:
+	//
+	//
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 }
 
@@ -447,17 +654,40 @@ func (s *Action) SetDescription(v string) *Action {
 // 项目
 type Project struct {
 	// 项目ID
+	// example:
+	//
+	// 1232132131
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 项目名称
+	// example:
+	//
+	// 默认项目
 	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
 	// 项目描述
+	// example:
+	//
+	// 我是项目描述
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 是否为默认项目
+	// example:
+	//
+	// true
 	IsDefault *bool `json:"is_default,omitempty" xml:"is_default,omitempty" require:"true"`
 	// 创建时间
+	// example:
+	//
+	// 2026-04-21 09:57:21
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 更新时间
+	// example:
+	//
+	// 2026-04-21 09:57:21
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 状态(false代表禁用，true代表启用)
+	// example:
+	//
+	// true
+	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
 }
 
 func (s Project) String() string {
@@ -498,10 +728,21 @@ func (s *Project) SetGmtModified(v string) *Project {
 	return s
 }
 
+func (s *Project) SetStatus(v bool) *Project {
+	s.Status = &v
+	return s
+}
+
 // 授权条件
 type Condition struct {
 	//
+	// example:
+	//
+	//
 	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	//
+	// example:
+	//
 	//
 	Value []*string `json:"value,omitempty" xml:"value,omitempty" type:"Repeated"`
 }
@@ -527,18 +768,36 @@ func (s *Condition) SetValue(v []*string) *Condition {
 // 角色
 type Role struct {
 	// 角色ID
+	// example:
+	//
+	//
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 角色名称
 	//
+	// example:
+	//
+	//
 	Name *string `json:"name,omitempty" xml:"name,omitempty"`
 	// 角色类型，CUSTOM:自定义角色，COMMON:系统通用角色
+	// example:
+	//
+	//
 	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 角色描述
 	//
+	// example:
+	//
+	//
 	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 状态
+	// example:
+	//
+	// NORMAL
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 	// 所有者
+	// example:
+	//
+	// AntCloud
 	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
 }
 
@@ -587,12 +846,24 @@ type Operator struct {
 	// 操作员所在的企业
 	Customer *string `json:"customer,omitempty" xml:"customer,omitempty"`
 	// 邮箱
+	// example:
+	//
+	// zhangsan@alipay.com
 	Email *string `json:"email,omitempty" xml:"email,omitempty"`
 	// 外部对接系统操作员id
+	// example:
+	//
+	// ding0000001
 	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty"`
 	// 外部对接系统类型
+	// example:
+	//
+	// DING_TALK
 	ExternalSystem *string `json:"external_system,omitempty" xml:"external_system,omitempty"`
 	// 操作员ID
+	// example:
+	//
+	// 0000000001
 	Id *string `json:"id,omitempty" xml:"id,omitempty"`
 	// 登录名
 	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
@@ -603,6 +874,9 @@ type Operator struct {
 	// 真实姓名
 	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
 	// 部门唯一码
+	// example:
+	//
+	//
 	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
 	// 操作员状态(INACTIVE：未激活，NORMAL：正常状态，FROZEN：冻结状态)
 	Status *string `json:"status,omitempty" xml:"status,omitempty"`
@@ -751,6 +1025,793 @@ func (s *QueryUserProjectResponse) SetResultMsg(v string) *QueryUserProjectRespo
 
 func (s *QueryUserProjectResponse) SetProjectList(v []*Project) *QueryUserProjectResponse {
 	s.ProjectList = v
+	return s
+}
+
+type UpdateTenantCountryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 国家代码
+	CountryCode *string `json:"country_code,omitempty" xml:"country_code,omitempty" require:"true"`
+	// 场景码
+	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
+}
+
+func (s UpdateTenantCountryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTenantCountryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTenantCountryRequest) SetAuthToken(v string) *UpdateTenantCountryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateTenantCountryRequest) SetTenantId(v string) *UpdateTenantCountryRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *UpdateTenantCountryRequest) SetCountryCode(v string) *UpdateTenantCountryRequest {
+	s.CountryCode = &v
+	return s
+}
+
+func (s *UpdateTenantCountryRequest) SetBusinessCode(v string) *UpdateTenantCountryRequest {
+	s.BusinessCode = &v
+	return s
+}
+
+type UpdateTenantCountryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateTenantCountryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTenantCountryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTenantCountryResponse) SetReqMsgId(v string) *UpdateTenantCountryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateTenantCountryResponse) SetResultCode(v string) *UpdateTenantCountryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateTenantCountryResponse) SetResultMsg(v string) *UpdateTenantCountryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTenantProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryTenantProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTenantProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTenantProjectRequest) SetAuthToken(v string) *QueryTenantProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTenantProjectRequest) SetTenantId(v string) *QueryTenantProjectRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryTenantProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 项目列表
+	ProjectList []*Project `json:"project_list,omitempty" xml:"project_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryTenantProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTenantProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTenantProjectResponse) SetReqMsgId(v string) *QueryTenantProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTenantProjectResponse) SetResultCode(v string) *QueryTenantProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTenantProjectResponse) SetResultMsg(v string) *QueryTenantProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTenantProjectResponse) SetProjectList(v []*Project) *QueryTenantProjectResponse {
+	s.ProjectList = v
+	return s
+}
+
+type CreateTenantProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 项目描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s CreateTenantProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateTenantProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateTenantProjectRequest) SetAuthToken(v string) *CreateTenantProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateTenantProjectRequest) SetUserId(v string) *CreateTenantProjectRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *CreateTenantProjectRequest) SetProjectName(v string) *CreateTenantProjectRequest {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *CreateTenantProjectRequest) SetDescription(v string) *CreateTenantProjectRequest {
+	s.Description = &v
+	return s
+}
+
+type CreateTenantProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateTenantProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateTenantProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateTenantProjectResponse) SetReqMsgId(v string) *CreateTenantProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateTenantProjectResponse) SetResultCode(v string) *CreateTenantProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateTenantProjectResponse) SetResultMsg(v string) *CreateTenantProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateTenantProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 项目描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s UpdateTenantProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTenantProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTenantProjectRequest) SetAuthToken(v string) *UpdateTenantProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateTenantProjectRequest) SetUserId(v string) *UpdateTenantProjectRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UpdateTenantProjectRequest) SetProjectId(v string) *UpdateTenantProjectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *UpdateTenantProjectRequest) SetProjectName(v string) *UpdateTenantProjectRequest {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *UpdateTenantProjectRequest) SetDescription(v string) *UpdateTenantProjectRequest {
+	s.Description = &v
+	return s
+}
+
+type UpdateTenantProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateTenantProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTenantProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTenantProjectResponse) SetReqMsgId(v string) *UpdateTenantProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateTenantProjectResponse) SetResultCode(v string) *UpdateTenantProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateTenantProjectResponse) SetResultMsg(v string) *UpdateTenantProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateProjectStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// false代表禁用，true代表启用
+	Status *bool `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s UpdateProjectStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateProjectStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateProjectStatusRequest) SetAuthToken(v string) *UpdateProjectStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateProjectStatusRequest) SetUserId(v string) *UpdateProjectStatusRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UpdateProjectStatusRequest) SetProjectId(v string) *UpdateProjectStatusRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *UpdateProjectStatusRequest) SetStatus(v bool) *UpdateProjectStatusRequest {
+	s.Status = &v
+	return s
+}
+
+type UpdateProjectStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateProjectStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateProjectStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateProjectStatusResponse) SetReqMsgId(v string) *UpdateProjectStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateProjectStatusResponse) SetResultCode(v string) *UpdateProjectStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateProjectStatusResponse) SetResultMsg(v string) *UpdateProjectStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryProjectMemberRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 用户名称（模糊搜索）
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 当前页，默认为 1
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 每页大小，默认为 10
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 排序字段：UTC_CREATE（创建时间）、UTC_MODIFIED（更新时间），默认为 UTC_CREATE
+	SortField *string `json:"sort_field,omitempty" xml:"sort_field,omitempty"`
+	// 排序方式：ASC（升序）、DESC（降序），默认为 DESC
+	SortOrder *string `json:"sort_order,omitempty" xml:"sort_order,omitempty"`
+}
+
+func (s QueryProjectMemberRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectMemberRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectMemberRequest) SetAuthToken(v string) *QueryProjectMemberRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetUserId(v string) *QueryProjectMemberRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetProjectId(v string) *QueryProjectMemberRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetUserName(v string) *QueryProjectMemberRequest {
+	s.UserName = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetCurrentPage(v int64) *QueryProjectMemberRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetPageSize(v int64) *QueryProjectMemberRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetSortField(v string) *QueryProjectMemberRequest {
+	s.SortField = &v
+	return s
+}
+
+func (s *QueryProjectMemberRequest) SetSortOrder(v string) *QueryProjectMemberRequest {
+	s.SortOrder = &v
+	return s
+}
+
+type QueryProjectMemberResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成员列表
+	Members []*Member `json:"members,omitempty" xml:"members,omitempty" type:"Repeated"`
+	// 当前页
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 查询结果总数
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+}
+
+func (s QueryProjectMemberResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectMemberResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectMemberResponse) SetReqMsgId(v string) *QueryProjectMemberResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetResultCode(v string) *QueryProjectMemberResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetResultMsg(v string) *QueryProjectMemberResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetMembers(v []*Member) *QueryProjectMemberResponse {
+	s.Members = v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetCurrentPage(v int64) *QueryProjectMemberResponse {
+	s.CurrentPage = &v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetPageSize(v int64) *QueryProjectMemberResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryProjectMemberResponse) SetTotalCount(v int64) *QueryProjectMemberResponse {
+	s.TotalCount = &v
+	return s
+}
+
+type AddProjectMemberRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 成员用户ID列表
+	Users []*string `json:"users,omitempty" xml:"users,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AddProjectMemberRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddProjectMemberRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddProjectMemberRequest) SetAuthToken(v string) *AddProjectMemberRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddProjectMemberRequest) SetUserId(v string) *AddProjectMemberRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *AddProjectMemberRequest) SetProjectId(v string) *AddProjectMemberRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *AddProjectMemberRequest) SetUsers(v []*string) *AddProjectMemberRequest {
+	s.Users = v
+	return s
+}
+
+type AddProjectMemberResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddProjectMemberResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddProjectMemberResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddProjectMemberResponse) SetReqMsgId(v string) *AddProjectMemberResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddProjectMemberResponse) SetResultCode(v string) *AddProjectMemberResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddProjectMemberResponse) SetResultMsg(v string) *AddProjectMemberResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RemoveProjectMemberRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 待移除的成员用户ID列表
+	Users []*string `json:"users,omitempty" xml:"users,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RemoveProjectMemberRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveProjectMemberRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveProjectMemberRequest) SetAuthToken(v string) *RemoveProjectMemberRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RemoveProjectMemberRequest) SetUserId(v string) *RemoveProjectMemberRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *RemoveProjectMemberRequest) SetProjectId(v string) *RemoveProjectMemberRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *RemoveProjectMemberRequest) SetUsers(v []*string) *RemoveProjectMemberRequest {
+	s.Users = v
+	return s
+}
+
+type RemoveProjectMemberResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RemoveProjectMemberResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RemoveProjectMemberResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RemoveProjectMemberResponse) SetReqMsgId(v string) *RemoveProjectMemberResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RemoveProjectMemberResponse) SetResultCode(v string) *RemoveProjectMemberResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RemoveProjectMemberResponse) SetResultMsg(v string) *RemoveProjectMemberResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryProjectUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 操作者用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 用户名称（模糊搜索）
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+}
+
+func (s QueryProjectUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectUserRequest) SetAuthToken(v string) *QueryProjectUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProjectUserRequest) SetUserId(v string) *QueryProjectUserRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryProjectUserRequest) SetProjectId(v string) *QueryProjectUserRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryProjectUserRequest) SetUserName(v string) *QueryProjectUserRequest {
+	s.UserName = &v
+	return s
+}
+
+type QueryProjectUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户列表
+	Users []*User `json:"users,omitempty" xml:"users,omitempty" type:"Repeated"`
+}
+
+func (s QueryProjectUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectUserResponse) SetReqMsgId(v string) *QueryProjectUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProjectUserResponse) SetResultCode(v string) *QueryProjectUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProjectUserResponse) SetResultMsg(v string) *QueryProjectUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProjectUserResponse) SetUsers(v []*User) *QueryProjectUserResponse {
+	s.Users = v
+	return s
+}
+
+type CreateOperatorNormalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 租户唯一标识
+	Tenant *string `json:"tenant,omitempty" xml:"tenant,omitempty" require:"true"`
+	// 操作员唯一登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 操作员真实姓名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+}
+
+func (s CreateOperatorNormalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOperatorNormalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOperatorNormalRequest) SetAuthToken(v string) *CreateOperatorNormalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateOperatorNormalRequest) SetTenant(v string) *CreateOperatorNormalRequest {
+	s.Tenant = &v
+	return s
+}
+
+func (s *CreateOperatorNormalRequest) SetLoginName(v string) *CreateOperatorNormalRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *CreateOperatorNormalRequest) SetRealName(v string) *CreateOperatorNormalRequest {
+	s.RealName = &v
+	return s
+}
+
+func (s *CreateOperatorNormalRequest) SetMobile(v string) *CreateOperatorNormalRequest {
+	s.Mobile = &v
+	return s
+}
+
+type CreateOperatorNormalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作员唯一ID
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+}
+
+func (s CreateOperatorNormalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateOperatorNormalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateOperatorNormalResponse) SetReqMsgId(v string) *CreateOperatorNormalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateOperatorNormalResponse) SetResultCode(v string) *CreateOperatorNormalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateOperatorNormalResponse) SetResultMsg(v string) *CreateOperatorNormalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateOperatorNormalResponse) SetOperatorId(v string) *CreateOperatorNormalResponse {
+	s.OperatorId = &v
 	return s
 }
 
@@ -2730,6 +3791,8 @@ type CreateAntchainTenantRequest struct {
 	AntchainCertified *bool `json:"antchain_certified,omitempty" xml:"antchain_certified,omitempty"`
 	// 外部系统的会员ID，用于幂等
 	SourceUserId *string `json:"source_user_id,omitempty" xml:"source_user_id,omitempty"`
+	// 注册区域
+	RegisterArea *string `json:"register_area,omitempty" xml:"register_area,omitempty"`
 }
 
 func (s CreateAntchainTenantRequest) String() string {
@@ -2815,6 +3878,11 @@ func (s *CreateAntchainTenantRequest) SetSourceUserId(v string) *CreateAntchainT
 	return s
 }
 
+func (s *CreateAntchainTenantRequest) SetRegisterArea(v string) *CreateAntchainTenantRequest {
+	s.RegisterArea = &v
+	return s
+}
+
 type CreateAntchainTenantResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2884,6 +3952,8 @@ type UpdateCustomerIdentityRequest struct {
 	BusinessCode *string `json:"business_code,omitempty" xml:"business_code,omitempty" require:"true"`
 	// 业务角色
 	BussinessRole *string `json:"bussiness_role,omitempty" xml:"bussiness_role,omitempty"`
+	// 国家代码
+	CountryCode *string `json:"country_code,omitempty" xml:"country_code,omitempty"`
 }
 
 func (s UpdateCustomerIdentityRequest) String() string {
@@ -2946,6 +4016,11 @@ func (s *UpdateCustomerIdentityRequest) SetBusinessCode(v string) *UpdateCustome
 
 func (s *UpdateCustomerIdentityRequest) SetBussinessRole(v string) *UpdateCustomerIdentityRequest {
 	s.BussinessRole = &v
+	return s
+}
+
+func (s *UpdateCustomerIdentityRequest) SetCountryCode(v string) *UpdateCustomerIdentityRequest {
+	s.CountryCode = &v
 	return s
 }
 
@@ -5137,10 +6212,11 @@ type Client struct {
 	MaxRequestsPerHost      *int
 }
 
-/**
- * Init client with Config
- * @param config config contains the necessary information to create a client
- */
+// Description:
+//
+// # Init client with Config
+//
+// @param config - config contains the necessary information to create a client
 func NewClient(config *Config) (*Client, error) {
 	client := new(Client)
 	err := client.Init(config)
@@ -5148,7 +6224,7 @@ func NewClient(config *Config) (*Client, error) {
 }
 
 func (client *Client) Init(config *Config) (_err error) {
-	if tea.BoolValue(util.IsUnset(tea.ToMap(config))) {
+	if tea.BoolValue(util.IsUnset(config)) {
 		_err = tea.NewSDKError(map[string]interface{}{
 			"code":    "ParameterMissing",
 			"message": "'config' can not be unset",
@@ -5177,16 +6253,23 @@ func (client *Client) Init(config *Config) (_err error) {
 	return nil
 }
 
-/**
- * Encapsulate the request and invoke the network
- * @param action api name
- * @param protocol http or https
- * @param method e.g. GET
- * @param pathname pathname of every api
- * @param request which contains request params
- * @param runtime which controls some details of call api, such as retry times
- * @return the response
- */
+// Description:
+//
+// # Encapsulate the request and invoke the network
+//
+// @param action - api name
+//
+// @param protocol - http or https
+//
+// @param method - e.g. GET
+//
+// @param pathname - pathname of every api
+//
+// @param request - which contains request params
+//
+// @param runtime - which controls some details of call api, such as retry times
+//
+// @return the response
 func (client *Client) DoRequest(version *string, action *string, protocol *string, method *string, pathname *string, request map[string]interface{}, headers map[string]*string, runtime *util.RuntimeOptions) (_result map[string]interface{}, _err error) {
 	_err = tea.Validate(runtime)
 	if _err != nil {
@@ -5237,7 +6320,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.10"),
+				"sdk_version":      tea.String("1.6.17"),
 				"_prod_code":       tea.String("acm"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5295,10 +6378,11 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	return _resp, _err
 }
 
-/**
- * Description: 查询用户所属项目列表
- * Summary: 查询用户所属项目列表
- */
+// Description:
+//
+// Description: 查询用户所属项目列表
+//
+// Summary: 查询用户所属项目列表
 func (client *Client) QueryUserProject(request *QueryUserProjectRequest) (_result *QueryUserProjectResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5311,10 +6395,11 @@ func (client *Client) QueryUserProject(request *QueryUserProjectRequest) (_resul
 	return _result, _err
 }
 
-/**
- * Description: 查询用户所属项目列表
- * Summary: 查询用户所属项目列表
- */
+// Description:
+//
+// Description: 查询用户所属项目列表
+//
+// Summary: 查询用户所属项目列表
 func (client *Client) QueryUserProjectEx(request *QueryUserProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserProjectResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5329,10 +6414,371 @@ func (client *Client) QueryUserProjectEx(request *QueryUserProjectRequest, heade
 	return _result, _err
 }
 
-/**
- * Description: 查询企业详情
- * Summary: 获取企业
- */
+// Description:
+//
+// Description: 更新蚂蚁链账号的国家代码
+//
+// Summary: 更新蚂蚁链账号的国家代码
+func (client *Client) UpdateTenantCountry(request *UpdateTenantCountryRequest) (_result *UpdateTenantCountryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateTenantCountryResponse{}
+	_body, _err := client.UpdateTenantCountryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新蚂蚁链账号的国家代码
+//
+// Summary: 更新蚂蚁链账号的国家代码
+func (client *Client) UpdateTenantCountryEx(request *UpdateTenantCountryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateTenantCountryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateTenantCountryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.country.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询租户下项目列表
+//
+// Summary: 查询租户下项目列表
+func (client *Client) QueryTenantProject(request *QueryTenantProjectRequest) (_result *QueryTenantProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTenantProjectResponse{}
+	_body, _err := client.QueryTenantProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询租户下项目列表
+//
+// Summary: 查询租户下项目列表
+func (client *Client) QueryTenantProjectEx(request *QueryTenantProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTenantProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTenantProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.project.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建项目
+//
+// Summary: 创建项目
+func (client *Client) CreateTenantProject(request *CreateTenantProjectRequest) (_result *CreateTenantProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateTenantProjectResponse{}
+	_body, _err := client.CreateTenantProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建项目
+//
+// Summary: 创建项目
+func (client *Client) CreateTenantProjectEx(request *CreateTenantProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateTenantProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateTenantProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.project.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 编辑项目
+//
+// Summary: 编辑项目
+func (client *Client) UpdateTenantProject(request *UpdateTenantProjectRequest) (_result *UpdateTenantProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateTenantProjectResponse{}
+	_body, _err := client.UpdateTenantProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 编辑项目
+//
+// Summary: 编辑项目
+func (client *Client) UpdateTenantProjectEx(request *UpdateTenantProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateTenantProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateTenantProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.tenant.project.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新项目状态
+//
+// Summary: 更新项目状态
+func (client *Client) UpdateProjectStatus(request *UpdateProjectStatusRequest) (_result *UpdateProjectStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateProjectStatusResponse{}
+	_body, _err := client.UpdateProjectStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新项目状态
+//
+// Summary: 更新项目状态
+func (client *Client) UpdateProjectStatusEx(request *UpdateProjectStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateProjectStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateProjectStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.project.status.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 分页查询项目成员列表
+//
+// Summary: 分页查询项目成员列表
+func (client *Client) QueryProjectMember(request *QueryProjectMemberRequest) (_result *QueryProjectMemberResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProjectMemberResponse{}
+	_body, _err := client.QueryProjectMemberEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 分页查询项目成员列表
+//
+// Summary: 分页查询项目成员列表
+func (client *Client) QueryProjectMemberEx(request *QueryProjectMemberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProjectMemberResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProjectMemberResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.project.member.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 批量添加项目成员
+//
+// Summary: 批量添加项目成员
+func (client *Client) AddProjectMember(request *AddProjectMemberRequest) (_result *AddProjectMemberResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddProjectMemberResponse{}
+	_body, _err := client.AddProjectMemberEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 批量添加项目成员
+//
+// Summary: 批量添加项目成员
+func (client *Client) AddProjectMemberEx(request *AddProjectMemberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddProjectMemberResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddProjectMemberResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.project.member.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 移除项目成员
+//
+// Summary: 移除项目成员
+func (client *Client) RemoveProjectMember(request *RemoveProjectMemberRequest) (_result *RemoveProjectMemberResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RemoveProjectMemberResponse{}
+	_body, _err := client.RemoveProjectMemberEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 移除项目成员
+//
+// Summary: 移除项目成员
+func (client *Client) RemoveProjectMemberEx(request *RemoveProjectMemberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveProjectMemberResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RemoveProjectMemberResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.project.member.remove"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询尚未加入该项目的用户列表
+//
+// Summary: 查询尚未加入该项目的用户列表
+func (client *Client) QueryProjectUser(request *QueryProjectUserRequest) (_result *QueryProjectUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProjectUserResponse{}
+	_body, _err := client.QueryProjectUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询尚未加入该项目的用户列表
+//
+// Summary: 查询尚未加入该项目的用户列表
+func (client *Client) QueryProjectUserEx(request *QueryProjectUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProjectUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProjectUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.project.user.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建操作员（无需激活）
+//
+// Summary: 创建操作员（无需激活）
+func (client *Client) CreateOperatorNormal(request *CreateOperatorNormalRequest) (_result *CreateOperatorNormalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateOperatorNormalResponse{}
+	_body, _err := client.CreateOperatorNormalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建操作员（无需激活）
+//
+// Summary: 创建操作员（无需激活）
+func (client *Client) CreateOperatorNormalEx(request *CreateOperatorNormalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOperatorNormalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateOperatorNormalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acm.operator.normal.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询企业详情
+//
+// Summary: 获取企业
 func (client *Client) GetCustomer(request *GetCustomerRequest) (_result *GetCustomerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5345,10 +6791,11 @@ func (client *Client) GetCustomer(request *GetCustomerRequest) (_result *GetCust
 	return _result, _err
 }
 
-/**
- * Description: 查询企业详情
- * Summary: 获取企业
- */
+// Description:
+//
+// Description: 查询企业详情
+//
+// Summary: 获取企业
 func (client *Client) GetCustomerEx(request *GetCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetCustomerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5363,10 +6810,11 @@ func (client *Client) GetCustomerEx(request *GetCustomerRequest, headers map[str
 	return _result, _err
 }
 
-/**
- * Description: 查询一个操作员的详情
- * Summary: 获取操作员
- */
+// Description:
+//
+// Description: 查询一个操作员的详情
+//
+// Summary: 获取操作员
 func (client *Client) GetOperator(request *GetOperatorRequest) (_result *GetOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5379,10 +6827,11 @@ func (client *Client) GetOperator(request *GetOperatorRequest) (_result *GetOper
 	return _result, _err
 }
 
-/**
- * Description: 查询一个操作员的详情
- * Summary: 获取操作员
- */
+// Description:
+//
+// Description: 查询一个操作员的详情
+//
+// Summary: 获取操作员
 func (client *Client) GetOperatorEx(request *GetOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5397,10 +6846,11 @@ func (client *Client) GetOperatorEx(request *GetOperatorRequest, headers map[str
 	return _result, _err
 }
 
-/**
- * Description: 查询操作员列表
- * Summary: 查询操作员
- */
+// Description:
+//
+// Description: 查询操作员列表
+//
+// Summary: 查询操作员
 func (client *Client) QueryOperator(request *QueryOperatorRequest) (_result *QueryOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5413,10 +6863,11 @@ func (client *Client) QueryOperator(request *QueryOperatorRequest) (_result *Que
 	return _result, _err
 }
 
-/**
- * Description: 查询操作员列表
- * Summary: 查询操作员
- */
+// Description:
+//
+// Description: 查询操作员列表
+//
+// Summary: 查询操作员
 func (client *Client) QueryOperatorEx(request *QueryOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5431,10 +6882,11 @@ func (client *Client) QueryOperatorEx(request *QueryOperatorRequest, headers map
 	return _result, _err
 }
 
-/**
- * Description: 搜索操作员
- * Summary: 搜索操作员
- */
+// Description:
+//
+// Description: 搜索操作员
+//
+// Summary: 搜索操作员
 func (client *Client) SearchOperator(request *SearchOperatorRequest) (_result *SearchOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5447,10 +6899,11 @@ func (client *Client) SearchOperator(request *SearchOperatorRequest) (_result *S
 	return _result, _err
 }
 
-/**
- * Description: 搜索操作员
- * Summary: 搜索操作员
- */
+// Description:
+//
+// Description: 搜索操作员
+//
+// Summary: 搜索操作员
 func (client *Client) SearchOperatorEx(request *SearchOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SearchOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5465,10 +6918,11 @@ func (client *Client) SearchOperatorEx(request *SearchOperatorRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 创建操作员
- * Summary: 创建操作员
- */
+// Description:
+//
+// Description: 创建操作员
+//
+// Summary: 创建操作员
 func (client *Client) CreateOperator(request *CreateOperatorRequest) (_result *CreateOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5481,10 +6935,11 @@ func (client *Client) CreateOperator(request *CreateOperatorRequest) (_result *C
 	return _result, _err
 }
 
-/**
- * Description: 创建操作员
- * Summary: 创建操作员
- */
+// Description:
+//
+// Description: 创建操作员
+//
+// Summary: 创建操作员
 func (client *Client) CreateOperatorEx(request *CreateOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5499,10 +6954,11 @@ func (client *Client) CreateOperatorEx(request *CreateOperatorRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 更新操作员
- * Summary: 更新操作员
- */
+// Description:
+//
+// Description: 更新操作员
+//
+// Summary: 更新操作员
 func (client *Client) UpdateOperator(request *UpdateOperatorRequest) (_result *UpdateOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5515,10 +6971,11 @@ func (client *Client) UpdateOperator(request *UpdateOperatorRequest) (_result *U
 	return _result, _err
 }
 
-/**
- * Description: 更新操作员
- * Summary: 更新操作员
- */
+// Description:
+//
+// Description: 更新操作员
+//
+// Summary: 更新操作员
 func (client *Client) UpdateOperatorEx(request *UpdateOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5533,10 +6990,11 @@ func (client *Client) UpdateOperatorEx(request *UpdateOperatorRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 删除操作员
- * Summary: 删除操作员
- */
+// Description:
+//
+// Description: 删除操作员
+//
+// Summary: 删除操作员
 func (client *Client) DeleteOperator(request *DeleteOperatorRequest) (_result *DeleteOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5549,10 +7007,11 @@ func (client *Client) DeleteOperator(request *DeleteOperatorRequest) (_result *D
 	return _result, _err
 }
 
-/**
- * Description: 删除操作员
- * Summary: 删除操作员
- */
+// Description:
+//
+// Description: 删除操作员
+//
+// Summary: 删除操作员
 func (client *Client) DeleteOperatorEx(request *DeleteOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5567,10 +7026,11 @@ func (client *Client) DeleteOperatorEx(request *DeleteOperatorRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 添加租户成员
- * Summary: 添加租户成员
- */
+// Description:
+//
+// Description: 添加租户成员
+//
+// Summary: 添加租户成员
 func (client *Client) AddTenantMember(request *AddTenantMemberRequest) (_result *AddTenantMemberResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5583,10 +7043,11 @@ func (client *Client) AddTenantMember(request *AddTenantMemberRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 添加租户成员
- * Summary: 添加租户成员
- */
+// Description:
+//
+// Description: 添加租户成员
+//
+// Summary: 添加租户成员
 func (client *Client) AddTenantMemberEx(request *AddTenantMemberRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddTenantMemberResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5601,10 +7062,11 @@ func (client *Client) AddTenantMemberEx(request *AddTenantMemberRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 初始化租户
- * Summary: 初始化租户
- */
+// Description:
+//
+// Description: 初始化租户
+//
+// Summary: 初始化租户
 func (client *Client) CreateTenant(request *CreateTenantRequest) (_result *CreateTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5617,10 +7079,11 @@ func (client *Client) CreateTenant(request *CreateTenantRequest) (_result *Creat
 	return _result, _err
 }
 
-/**
- * Description: 初始化租户
- * Summary: 初始化租户
- */
+// Description:
+//
+// Description: 初始化租户
+//
+// Summary: 初始化租户
 func (client *Client) CreateTenantEx(request *CreateTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5635,10 +7098,11 @@ func (client *Client) CreateTenantEx(request *CreateTenantRequest, headers map[s
 	return _result, _err
 }
 
-/**
- * Description: 查询租户详情
- * Summary: 获取用户信息
- */
+// Description:
+//
+// Description: 查询租户详情
+//
+// Summary: 获取用户信息
 func (client *Client) GetTenant(request *GetTenantRequest) (_result *GetTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5651,10 +7115,11 @@ func (client *Client) GetTenant(request *GetTenantRequest) (_result *GetTenantRe
 	return _result, _err
 }
 
-/**
- * Description: 查询租户详情
- * Summary: 获取用户信息
- */
+// Description:
+//
+// Description: 查询租户详情
+//
+// Summary: 获取用户信息
 func (client *Client) GetTenantEx(request *GetTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5669,10 +7134,11 @@ func (client *Client) GetTenantEx(request *GetTenantRequest, headers map[string]
 	return _result, _err
 }
 
-/**
- * Description: 查询租户列表
- * Summary: 查询租户列表
- */
+// Description:
+//
+// Description: 查询租户列表
+//
+// Summary: 查询租户列表
 func (client *Client) QueryTenant(request *QueryTenantRequest) (_result *QueryTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5685,10 +7151,11 @@ func (client *Client) QueryTenant(request *QueryTenantRequest) (_result *QueryTe
 	return _result, _err
 }
 
-/**
- * Description: 查询租户列表
- * Summary: 查询租户列表
- */
+// Description:
+//
+// Description: 查询租户列表
+//
+// Summary: 查询租户列表
 func (client *Client) QueryTenantEx(request *QueryTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5703,10 +7170,11 @@ func (client *Client) QueryTenantEx(request *QueryTenantRequest, headers map[str
 	return _result, _err
 }
 
-/**
- * Description: 根据蚂蚁通行证uid查询租户id
- * Summary: 查询租户ID
- */
+// Description:
+//
+// Description: 根据蚂蚁通行证uid查询租户id
+//
+// Summary: 查询租户ID
 func (client *Client) GetAntpassportTenant(request *GetAntpassportTenantRequest) (_result *GetAntpassportTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5719,10 +7187,11 @@ func (client *Client) GetAntpassportTenant(request *GetAntpassportTenantRequest)
 	return _result, _err
 }
 
-/**
- * Description: 根据蚂蚁通行证uid查询租户id
- * Summary: 查询租户ID
- */
+// Description:
+//
+// Description: 根据蚂蚁通行证uid查询租户id
+//
+// Summary: 查询租户ID
 func (client *Client) GetAntpassportTenantEx(request *GetAntpassportTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetAntpassportTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5737,10 +7206,11 @@ func (client *Client) GetAntpassportTenantEx(request *GetAntpassportTenantReques
 	return _result, _err
 }
 
-/**
- * Description: 获取调用接口所使用AccessKey对应的身份实体信息
- * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
- */
+// Description:
+//
+// Description: 获取调用接口所使用AccessKey对应的身份实体信息
+//
+// Summary: 获取调用接口所使用AccessKey对应的身份实体信息
 func (client *Client) GetCurrentid(request *GetCurrentidRequest) (_result *GetCurrentidResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5753,10 +7223,11 @@ func (client *Client) GetCurrentid(request *GetCurrentidRequest) (_result *GetCu
 	return _result, _err
 }
 
-/**
- * Description: 获取调用接口所使用AccessKey对应的身份实体信息
- * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
- */
+// Description:
+//
+// Description: 获取调用接口所使用AccessKey对应的身份实体信息
+//
+// Summary: 获取调用接口所使用AccessKey对应的身份实体信息
 func (client *Client) GetCurrentidEx(request *GetCurrentidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetCurrentidResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5771,10 +7242,11 @@ func (client *Client) GetCurrentidEx(request *GetCurrentidRequest, headers map[s
 	return _result, _err
 }
 
-/**
- * Description: 获取租户对应的钉钉授权token信息，内部接口
- * Summary: 获取租户的钉钉授权
- */
+// Description:
+//
+// Description: 获取租户对应的钉钉授权token信息，内部接口
+//
+// Summary: 获取租户的钉钉授权
 func (client *Client) GetTenantDingtoken(request *GetTenantDingtokenRequest) (_result *GetTenantDingtokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5787,10 +7259,11 @@ func (client *Client) GetTenantDingtoken(request *GetTenantDingtokenRequest) (_r
 	return _result, _err
 }
 
-/**
- * Description: 获取租户对应的钉钉授权token信息，内部接口
- * Summary: 获取租户的钉钉授权
- */
+// Description:
+//
+// Description: 获取租户对应的钉钉授权token信息，内部接口
+//
+// Summary: 获取租户的钉钉授权
 func (client *Client) GetTenantDingtokenEx(request *GetTenantDingtokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetTenantDingtokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5805,10 +7278,11 @@ func (client *Client) GetTenantDingtokenEx(request *GetTenantDingtokenRequest, h
 	return _result, _err
 }
 
-/**
- * Description: 分页查询管理员，内部接口
- * Summary: 分页查询管理员
- */
+// Description:
+//
+// Description: 分页查询管理员，内部接口
+//
+// Summary: 分页查询管理员
 func (client *Client) QueryAdmin(request *QueryAdminRequest) (_result *QueryAdminResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5821,10 +7295,11 @@ func (client *Client) QueryAdmin(request *QueryAdminRequest) (_result *QueryAdmi
 	return _result, _err
 }
 
-/**
- * Description: 分页查询管理员，内部接口
- * Summary: 分页查询管理员
- */
+// Description:
+//
+// Description: 分页查询管理员，内部接口
+//
+// Summary: 分页查询管理员
 func (client *Client) QueryAdminEx(request *QueryAdminRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAdminResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5839,10 +7314,11 @@ func (client *Client) QueryAdminEx(request *QueryAdminRequest, headers map[strin
 	return _result, _err
 }
 
-/**
- * Description: 获取租户的IaaS账号
- * Summary: 获取租户的IaaS账号
- */
+// Description:
+//
+// Description: 获取租户的IaaS账号
+//
+// Summary: 获取租户的IaaS账号
 func (client *Client) GetTenantIaasaccount(request *GetTenantIaasaccountRequest) (_result *GetTenantIaasaccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5855,10 +7331,11 @@ func (client *Client) GetTenantIaasaccount(request *GetTenantIaasaccountRequest)
 	return _result, _err
 }
 
-/**
- * Description: 获取租户的IaaS账号
- * Summary: 获取租户的IaaS账号
- */
+// Description:
+//
+// Description: 获取租户的IaaS账号
+//
+// Summary: 获取租户的IaaS账号
 func (client *Client) GetTenantIaasaccountEx(request *GetTenantIaasaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetTenantIaasaccountResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5873,10 +7350,11 @@ func (client *Client) GetTenantIaasaccountEx(request *GetTenantIaasaccountReques
 	return _result, _err
 }
 
-/**
- * Description: 查询企业列表(内部接口,私有云开放)
- * Summary: 查询企业列表
- */
+// Description:
+//
+// Description: 查询企业列表(内部接口,私有云开放)
+//
+// Summary: 查询企业列表
 func (client *Client) ListCustomer(request *ListCustomerRequest) (_result *ListCustomerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5889,10 +7367,11 @@ func (client *Client) ListCustomer(request *ListCustomerRequest) (_result *ListC
 	return _result, _err
 }
 
-/**
- * Description: 查询企业列表(内部接口,私有云开放)
- * Summary: 查询企业列表
- */
+// Description:
+//
+// Description: 查询企业列表(内部接口,私有云开放)
+//
+// Summary: 查询企业列表
 func (client *Client) ListCustomerEx(request *ListCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListCustomerResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5907,10 +7386,11 @@ func (client *Client) ListCustomerEx(request *ListCustomerRequest, headers map[s
 	return _result, _err
 }
 
-/**
- * Description: 支付宝账号证书信息校验及校验、入驻、打标
- * Summary: 支付宝账号证书信息校验、入驻、打标
- */
+// Description:
+//
+// Description: 支付宝账号证书信息校验及校验、入驻、打标
+//
+// Summary: 支付宝账号证书信息校验、入驻、打标
 func (client *Client) CheckAlipayTenant(request *CheckAlipayTenantRequest) (_result *CheckAlipayTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5923,10 +7403,11 @@ func (client *Client) CheckAlipayTenant(request *CheckAlipayTenantRequest) (_res
 	return _result, _err
 }
 
-/**
- * Description: 支付宝账号证书信息校验及校验、入驻、打标
- * Summary: 支付宝账号证书信息校验、入驻、打标
- */
+// Description:
+//
+// Description: 支付宝账号证书信息校验及校验、入驻、打标
+//
+// Summary: 支付宝账号证书信息校验、入驻、打标
 func (client *Client) CheckAlipayTenantEx(request *CheckAlipayTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAlipayTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5941,10 +7422,11 @@ func (client *Client) CheckAlipayTenantEx(request *CheckAlipayTenantRequest, hea
 	return _result, _err
 }
 
-/**
- * Description: 租户入住状态查询
- * Summary: 租户入住状态查询
- */
+// Description:
+//
+// Description: 租户入住状态查询
+//
+// Summary: 租户入住状态查询
 func (client *Client) QueryTenantStatus(request *QueryTenantStatusRequest) (_result *QueryTenantStatusResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5957,10 +7439,11 @@ func (client *Client) QueryTenantStatus(request *QueryTenantStatusRequest) (_res
 	return _result, _err
 }
 
-/**
- * Description: 租户入住状态查询
- * Summary: 租户入住状态查询
- */
+// Description:
+//
+// Description: 租户入住状态查询
+//
+// Summary: 租户入住状态查询
 func (client *Client) QueryTenantStatusEx(request *QueryTenantStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTenantStatusResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -5975,10 +7458,11 @@ func (client *Client) QueryTenantStatusEx(request *QueryTenantStatusRequest, hea
 	return _result, _err
 }
 
-/**
- * Description: 账号创建
- * Summary: 账号创建
- */
+// Description:
+//
+// Description: 账号创建
+//
+// Summary: 账号创建
 func (client *Client) CreateAntchainTenant(request *CreateAntchainTenantRequest) (_result *CreateAntchainTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -5991,10 +7475,11 @@ func (client *Client) CreateAntchainTenant(request *CreateAntchainTenantRequest)
 	return _result, _err
 }
 
-/**
- * Description: 账号创建
- * Summary: 账号创建
- */
+// Description:
+//
+// Description: 账号创建
+//
+// Summary: 账号创建
 func (client *Client) CreateAntchainTenantEx(request *CreateAntchainTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntchainTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6009,10 +7494,11 @@ func (client *Client) CreateAntchainTenantEx(request *CreateAntchainTenantReques
 	return _result, _err
 }
 
-/**
- * Description: 客户认证信息更新
- * Summary: 客户认证信息更新
- */
+// Description:
+//
+// Description: 客户认证信息更新
+//
+// Summary: 客户认证信息更新
 func (client *Client) UpdateCustomerIdentity(request *UpdateCustomerIdentityRequest) (_result *UpdateCustomerIdentityResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6025,10 +7511,11 @@ func (client *Client) UpdateCustomerIdentity(request *UpdateCustomerIdentityRequ
 	return _result, _err
 }
 
-/**
- * Description: 客户认证信息更新
- * Summary: 客户认证信息更新
- */
+// Description:
+//
+// Description: 客户认证信息更新
+//
+// Summary: 客户认证信息更新
 func (client *Client) UpdateCustomerIdentityEx(request *UpdateCustomerIdentityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateCustomerIdentityResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6043,10 +7530,11 @@ func (client *Client) UpdateCustomerIdentityEx(request *UpdateCustomerIdentityRe
 	return _result, _err
 }
 
-/**
- * Description: 使用用户ID或用户CODE查询用户信息
- * Summary: 使用用户ID或用户CODE查询用户信息
- */
+// Description:
+//
+// Description: 使用用户ID或用户CODE查询用户信息
+//
+// Summary: 使用用户ID或用户CODE查询用户信息
 func (client *Client) GetMasterTenant(request *GetMasterTenantRequest) (_result *GetMasterTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6059,10 +7547,11 @@ func (client *Client) GetMasterTenant(request *GetMasterTenantRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 使用用户ID或用户CODE查询用户信息
- * Summary: 使用用户ID或用户CODE查询用户信息
- */
+// Description:
+//
+// Description: 使用用户ID或用户CODE查询用户信息
+//
+// Summary: 使用用户ID或用户CODE查询用户信息
 func (client *Client) GetMasterTenantEx(request *GetMasterTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetMasterTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6077,10 +7566,11 @@ func (client *Client) GetMasterTenantEx(request *GetMasterTenantRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 检查邮箱是否可以用来注册
- * Summary: 检查邮箱是否可以用来注册
- */
+// Description:
+//
+// Description: 检查邮箱是否可以用来注册
+//
+// Summary: 检查邮箱是否可以用来注册
 func (client *Client) CheckLoginname(request *CheckLoginnameRequest) (_result *CheckLoginnameResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6093,10 +7583,11 @@ func (client *Client) CheckLoginname(request *CheckLoginnameRequest) (_result *C
 	return _result, _err
 }
 
-/**
- * Description: 检查邮箱是否可以用来注册
- * Summary: 检查邮箱是否可以用来注册
- */
+// Description:
+//
+// Description: 检查邮箱是否可以用来注册
+//
+// Summary: 检查邮箱是否可以用来注册
 func (client *Client) CheckLoginnameEx(request *CheckLoginnameRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckLoginnameResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6111,10 +7602,11 @@ func (client *Client) CheckLoginnameEx(request *CheckLoginnameRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 查询租户的标签
- * Summary: 查询租户的标签列表
- */
+// Description:
+//
+// Description: 查询租户的标签
+//
+// Summary: 查询租户的标签列表
 func (client *Client) QueryTenantTag(request *QueryTenantTagRequest) (_result *QueryTenantTagResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6127,10 +7619,11 @@ func (client *Client) QueryTenantTag(request *QueryTenantTagRequest) (_result *Q
 	return _result, _err
 }
 
-/**
- * Description: 查询租户的标签
- * Summary: 查询租户的标签列表
- */
+// Description:
+//
+// Description: 查询租户的标签
+//
+// Summary: 查询租户的标签列表
 func (client *Client) QueryTenantTagEx(request *QueryTenantTagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTenantTagResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6145,10 +7638,11 @@ func (client *Client) QueryTenantTagEx(request *QueryTenantTagRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 租户增加业务标签
- * Summary: 租户增加业务标签
- */
+// Description:
+//
+// Description: 租户增加业务标签
+//
+// Summary: 租户增加业务标签
 func (client *Client) AddTenantBusinesstag(request *AddTenantBusinesstagRequest) (_result *AddTenantBusinesstagResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6161,10 +7655,11 @@ func (client *Client) AddTenantBusinesstag(request *AddTenantBusinesstagRequest)
 	return _result, _err
 }
 
-/**
- * Description: 租户增加业务标签
- * Summary: 租户增加业务标签
- */
+// Description:
+//
+// Description: 租户增加业务标签
+//
+// Summary: 租户增加业务标签
 func (client *Client) AddTenantBusinesstagEx(request *AddTenantBusinesstagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddTenantBusinesstagResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6179,10 +7674,11 @@ func (client *Client) AddTenantBusinesstagEx(request *AddTenantBusinesstagReques
 	return _result, _err
 }
 
-/**
- * Description: 删除业务标签
- * Summary: 删除业务标签
- */
+// Description:
+//
+// Description: 删除业务标签
+//
+// Summary: 删除业务标签
 func (client *Client) RemoveTenantBusinesstag(request *RemoveTenantBusinesstagRequest) (_result *RemoveTenantBusinesstagResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6195,10 +7691,11 @@ func (client *Client) RemoveTenantBusinesstag(request *RemoveTenantBusinesstagRe
 	return _result, _err
 }
 
-/**
- * Description: 删除业务标签
- * Summary: 删除业务标签
- */
+// Description:
+//
+// Description: 删除业务标签
+//
+// Summary: 删除业务标签
 func (client *Client) RemoveTenantBusinesstagEx(request *RemoveTenantBusinesstagRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RemoveTenantBusinesstagResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6213,10 +7710,11 @@ func (client *Client) RemoveTenantBusinesstagEx(request *RemoveTenantBusinesstag
 	return _result, _err
 }
 
-/**
- * Description: 用户发送操作员的激活邮件
- * Summary: 操作员发送激活邮件
- */
+// Description:
+//
+// Description: 用户发送操作员的激活邮件
+//
+// Summary: 操作员发送激活邮件
 func (client *Client) SendOperatorActiveemail(request *SendOperatorActiveemailRequest) (_result *SendOperatorActiveemailResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6229,10 +7727,11 @@ func (client *Client) SendOperatorActiveemail(request *SendOperatorActiveemailRe
 	return _result, _err
 }
 
-/**
- * Description: 用户发送操作员的激活邮件
- * Summary: 操作员发送激活邮件
- */
+// Description:
+//
+// Description: 用户发送操作员的激活邮件
+//
+// Summary: 操作员发送激活邮件
 func (client *Client) SendOperatorActiveemailEx(request *SendOperatorActiveemailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendOperatorActiveemailResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6247,10 +7746,11 @@ func (client *Client) SendOperatorActiveemailEx(request *SendOperatorActiveemail
 	return _result, _err
 }
 
-/**
- * Description: 账号信息同步
- * Summary: 账号信息同步
- */
+// Description:
+//
+// Description: 账号信息同步
+//
+// Summary: 账号信息同步
 func (client *Client) SyncTenantInfo(request *SyncTenantInfoRequest) (_result *SyncTenantInfoResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6263,10 +7763,11 @@ func (client *Client) SyncTenantInfo(request *SyncTenantInfoRequest) (_result *S
 	return _result, _err
 }
 
-/**
- * Description: 账号信息同步
- * Summary: 账号信息同步
- */
+// Description:
+//
+// Description: 账号信息同步
+//
+// Summary: 账号信息同步
 func (client *Client) SyncTenantInfoEx(request *SyncTenantInfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncTenantInfoResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6281,10 +7782,11 @@ func (client *Client) SyncTenantInfoEx(request *SyncTenantInfoRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 三方授权创建服务账号
- * Summary: 三方授权创建服务账号
- */
+// Description:
+//
+// Description: 三方授权创建服务账号
+//
+// Summary: 三方授权创建服务账号
 func (client *Client) CreateOauthServiceaccount(request *CreateOauthServiceaccountRequest) (_result *CreateOauthServiceaccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6297,10 +7799,11 @@ func (client *Client) CreateOauthServiceaccount(request *CreateOauthServiceaccou
 	return _result, _err
 }
 
-/**
- * Description: 三方授权创建服务账号
- * Summary: 三方授权创建服务账号
- */
+// Description:
+//
+// Description: 三方授权创建服务账号
+//
+// Summary: 三方授权创建服务账号
 func (client *Client) CreateOauthServiceaccountEx(request *CreateOauthServiceaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOauthServiceaccountResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6315,10 +7818,11 @@ func (client *Client) CreateOauthServiceaccountEx(request *CreateOauthServiceacc
 	return _result, _err
 }
 
-/**
- * Description: 三方授权获取服务账号信息
- * Summary: 三方授权获取服务账号信息
- */
+// Description:
+//
+// Description: 三方授权获取服务账号信息
+//
+// Summary: 三方授权获取服务账号信息
 func (client *Client) GetOauthServiceaccount(request *GetOauthServiceaccountRequest) (_result *GetOauthServiceaccountResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6331,10 +7835,11 @@ func (client *Client) GetOauthServiceaccount(request *GetOauthServiceaccountRequ
 	return _result, _err
 }
 
-/**
- * Description: 三方授权获取服务账号信息
- * Summary: 三方授权获取服务账号信息
- */
+// Description:
+//
+// Description: 三方授权获取服务账号信息
+//
+// Summary: 三方授权获取服务账号信息
 func (client *Client) GetOauthServiceaccountEx(request *GetOauthServiceaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOauthServiceaccountResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6349,10 +7854,11 @@ func (client *Client) GetOauthServiceaccountEx(request *GetOauthServiceaccountRe
 	return _result, _err
 }
 
-/**
- * Description: 三方授权开通手机号登陆
- * Summary: 三方授权开通手机号登陆
- */
+// Description:
+//
+// Description: 三方授权开通手机号登陆
+//
+// Summary: 三方授权开通手机号登陆
 func (client *Client) EnableOauthMobilelogin(request *EnableOauthMobileloginRequest) (_result *EnableOauthMobileloginResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6365,10 +7871,11 @@ func (client *Client) EnableOauthMobilelogin(request *EnableOauthMobileloginRequ
 	return _result, _err
 }
 
-/**
- * Description: 三方授权开通手机号登陆
- * Summary: 三方授权开通手机号登陆
- */
+// Description:
+//
+// Description: 三方授权开通手机号登陆
+//
+// Summary: 三方授权开通手机号登陆
 func (client *Client) EnableOauthMobileloginEx(request *EnableOauthMobileloginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *EnableOauthMobileloginResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6383,10 +7890,11 @@ func (client *Client) EnableOauthMobileloginEx(request *EnableOauthMobileloginRe
 	return _result, _err
 }
 
-/**
- * Description: 三方授权关闭手机号登陆
- * Summary: 三方授权关闭手机号登陆
- */
+// Description:
+//
+// Description: 三方授权关闭手机号登陆
+//
+// Summary: 三方授权关闭手机号登陆
 func (client *Client) DisableOauthMobilelogin(request *DisableOauthMobileloginRequest) (_result *DisableOauthMobileloginResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6399,10 +7907,11 @@ func (client *Client) DisableOauthMobilelogin(request *DisableOauthMobileloginRe
 	return _result, _err
 }
 
-/**
- * Description: 三方授权关闭手机号登陆
- * Summary: 三方授权关闭手机号登陆
- */
+// Description:
+//
+// Description: 三方授权关闭手机号登陆
+//
+// Summary: 三方授权关闭手机号登陆
 func (client *Client) DisableOauthMobileloginEx(request *DisableOauthMobileloginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DisableOauthMobileloginResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6417,10 +7926,11 @@ func (client *Client) DisableOauthMobileloginEx(request *DisableOauthMobilelogin
 	return _result, _err
 }
 
-/**
- * Description: 提供给一方化平台代客创建服务账号（ak sk）
- * Summary: 一方化会员服务账号创建
- */
+// Description:
+//
+// Description: 提供给一方化平台代客创建服务账号（ak sk）
+//
+// Summary: 一方化会员服务账号创建
 func (client *Client) CreateServiceaccountOneparty(request *CreateServiceaccountOnepartyRequest) (_result *CreateServiceaccountOnepartyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6433,10 +7943,11 @@ func (client *Client) CreateServiceaccountOneparty(request *CreateServiceaccount
 	return _result, _err
 }
 
-/**
- * Description: 提供给一方化平台代客创建服务账号（ak sk）
- * Summary: 一方化会员服务账号创建
- */
+// Description:
+//
+// Description: 提供给一方化平台代客创建服务账号（ak sk）
+//
+// Summary: 一方化会员服务账号创建
 func (client *Client) CreateServiceaccountOnepartyEx(request *CreateServiceaccountOnepartyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateServiceaccountOnepartyResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6451,10 +7962,11 @@ func (client *Client) CreateServiceaccountOnepartyEx(request *CreateServiceaccou
 	return _result, _err
 }
 
-/**
- * Description: 一方化会员服务账号查询（ak sk）
- * Summary: 一方化会员服务账号查询
- */
+// Description:
+//
+// Description: 一方化会员服务账号查询（ak sk）
+//
+// Summary: 一方化会员服务账号查询
 func (client *Client) GetServiceaccountOneparty(request *GetServiceaccountOnepartyRequest) (_result *GetServiceaccountOnepartyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6467,10 +7979,11 @@ func (client *Client) GetServiceaccountOneparty(request *GetServiceaccountOnepar
 	return _result, _err
 }
 
-/**
- * Description: 一方化会员服务账号查询（ak sk）
- * Summary: 一方化会员服务账号查询
- */
+// Description:
+//
+// Description: 一方化会员服务账号查询（ak sk）
+//
+// Summary: 一方化会员服务账号查询
 func (client *Client) GetServiceaccountOnepartyEx(request *GetServiceaccountOnepartyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetServiceaccountOnepartyResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6485,10 +7998,11 @@ func (client *Client) GetServiceaccountOnepartyEx(request *GetServiceaccountOnep
 	return _result, _err
 }
 
-/**
- * Description: token用于三方会员免密登录，与数科官网token不通用
- * Summary: 三方会员免密登录token申请
- */
+// Description:
+//
+// Description: token用于三方会员免密登录，与数科官网token不通用
+//
+// Summary: 三方会员免密登录token申请
 func (client *Client) ApplyTrustloginToken(request *ApplyTrustloginTokenRequest) (_result *ApplyTrustloginTokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6501,10 +8015,11 @@ func (client *Client) ApplyTrustloginToken(request *ApplyTrustloginTokenRequest)
 	return _result, _err
 }
 
-/**
- * Description: token用于三方会员免密登录，与数科官网token不通用
- * Summary: 三方会员免密登录token申请
- */
+// Description:
+//
+// Description: token用于三方会员免密登录，与数科官网token不通用
+//
+// Summary: 三方会员免密登录token申请
 func (client *Client) ApplyTrustloginTokenEx(request *ApplyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTrustloginTokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6519,10 +8034,11 @@ func (client *Client) ApplyTrustloginTokenEx(request *ApplyTrustloginTokenReques
 	return _result, _err
 }
 
-/**
- * Description: 三方会员免密登录token校验，与数科官网token不通用
- * Summary: 三方会员免密登录token校验
- */
+// Description:
+//
+// Description: 三方会员免密登录token校验，与数科官网token不通用
+//
+// Summary: 三方会员免密登录token校验
 func (client *Client) VerifyTrustloginToken(request *VerifyTrustloginTokenRequest) (_result *VerifyTrustloginTokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6535,10 +8051,11 @@ func (client *Client) VerifyTrustloginToken(request *VerifyTrustloginTokenReques
 	return _result, _err
 }
 
-/**
- * Description: 三方会员免密登录token校验，与数科官网token不通用
- * Summary: 三方会员免密登录token校验
- */
+// Description:
+//
+// Description: 三方会员免密登录token校验，与数科官网token不通用
+//
+// Summary: 三方会员免密登录token校验
 func (client *Client) VerifyTrustloginTokenEx(request *VerifyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyTrustloginTokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6553,10 +8070,11 @@ func (client *Client) VerifyTrustloginTokenEx(request *VerifyTrustloginTokenRequ
 	return _result, _err
 }
 
-/**
- * Description: 一方化会员创建的服务账号授权
- * Summary: 一方化会员创建的服务账号授权
- */
+// Description:
+//
+// Description: 一方化会员创建的服务账号授权
+//
+// Summary: 一方化会员创建的服务账号授权
 func (client *Client) AddServiceaccountAuthpolicy(request *AddServiceaccountAuthpolicyRequest) (_result *AddServiceaccountAuthpolicyResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6569,10 +8087,11 @@ func (client *Client) AddServiceaccountAuthpolicy(request *AddServiceaccountAuth
 	return _result, _err
 }
 
-/**
- * Description: 一方化会员创建的服务账号授权
- * Summary: 一方化会员创建的服务账号授权
- */
+// Description:
+//
+// Description: 一方化会员创建的服务账号授权
+//
+// Summary: 一方化会员创建的服务账号授权
 func (client *Client) AddServiceaccountAuthpolicyEx(request *AddServiceaccountAuthpolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddServiceaccountAuthpolicyResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6587,10 +8106,11 @@ func (client *Client) AddServiceaccountAuthpolicyEx(request *AddServiceaccountAu
 	return _result, _err
 }
 
-/**
- * Description: 查询用户所具有的角色，用于平台型产品管控用户
- * Summary: 查询用户所具有的角色
- */
+// Description:
+//
+// Description: 查询用户所具有的角色，用于平台型产品管控用户
+//
+// Summary: 查询用户所具有的角色
 func (client *Client) QueryUserRole(request *QueryUserRoleRequest) (_result *QueryUserRoleResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6603,10 +8123,11 @@ func (client *Client) QueryUserRole(request *QueryUserRoleRequest) (_result *Que
 	return _result, _err
 }
 
-/**
- * Description: 查询用户所具有的角色，用于平台型产品管控用户
- * Summary: 查询用户所具有的角色
- */
+// Description:
+//
+// Description: 查询用户所具有的角色，用于平台型产品管控用户
+//
+// Summary: 查询用户所具有的角色
 func (client *Client) QueryUserRoleEx(request *QueryUserRoleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUserRoleResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6621,10 +8142,11 @@ func (client *Client) QueryUserRoleEx(request *QueryUserRoleRequest, headers map
 	return _result, _err
 }
 
-/**
- * Description: 角色权限点查询，用于平台型产品
- * Summary: 角色权限点查询
- */
+// Description:
+//
+// Description: 角色权限点查询，用于平台型产品
+//
+// Summary: 角色权限点查询
 func (client *Client) QueryRoleAction(request *QueryRoleActionRequest) (_result *QueryRoleActionResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6637,10 +8159,11 @@ func (client *Client) QueryRoleAction(request *QueryRoleActionRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 角色权限点查询，用于平台型产品
- * Summary: 角色权限点查询
- */
+// Description:
+//
+// Description: 角色权限点查询，用于平台型产品
+//
+// Summary: 角色权限点查询
 func (client *Client) QueryRoleActionEx(request *QueryRoleActionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRoleActionResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6655,10 +8178,11 @@ func (client *Client) QueryRoleActionEx(request *QueryRoleActionRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 服务账号（AK）验签
- * Summary: 服务账号（AK）验签
- */
+// Description:
+//
+// Description: 服务账号（AK）验签
+//
+// Summary: 服务账号（AK）验签
 func (client *Client) VerifyServiceaccountSignature(request *VerifyServiceaccountSignatureRequest) (_result *VerifyServiceaccountSignatureResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6671,10 +8195,11 @@ func (client *Client) VerifyServiceaccountSignature(request *VerifyServiceaccoun
 	return _result, _err
 }
 
-/**
- * Description: 服务账号（AK）验签
- * Summary: 服务账号（AK）验签
- */
+// Description:
+//
+// Description: 服务账号（AK）验签
+//
+// Summary: 服务账号（AK）验签
 func (client *Client) VerifyServiceaccountSignatureEx(request *VerifyServiceaccountSignatureRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyServiceaccountSignatureResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6689,10 +8214,11 @@ func (client *Client) VerifyServiceaccountSignatureEx(request *VerifyServiceacco
 	return _result, _err
 }
 
-/**
- * Description: 创建用户登录态（线下环境使用）
- * Summary: 创建用户登录态（线下环境使用）
- */
+// Description:
+//
+// Description: 创建用户登录态（线下环境使用）
+//
+// Summary: 创建用户登录态（线下环境使用）
 func (client *Client) CreateUserToken(request *CreateUserTokenRequest) (_result *CreateUserTokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6705,10 +8231,11 @@ func (client *Client) CreateUserToken(request *CreateUserTokenRequest) (_result 
 	return _result, _err
 }
 
-/**
- * Description: 创建用户登录态（线下环境使用）
- * Summary: 创建用户登录态（线下环境使用）
- */
+// Description:
+//
+// Description: 创建用户登录态（线下环境使用）
+//
+// Summary: 创建用户登录态（线下环境使用）
 func (client *Client) CreateUserTokenEx(request *CreateUserTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUserTokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6723,10 +8250,11 @@ func (client *Client) CreateUserTokenEx(request *CreateUserTokenRequest, headers
 	return _result, _err
 }
 
-/**
- * Description: 刷新用户登录态（线下环境使用）
- * Summary: 刷新用户登录态（线下环境使用）
- */
+// Description:
+//
+// Description: 刷新用户登录态（线下环境使用）
+//
+// Summary: 刷新用户登录态（线下环境使用）
 func (client *Client) RefreshUserToken(request *RefreshUserTokenRequest) (_result *RefreshUserTokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6739,10 +8267,11 @@ func (client *Client) RefreshUserToken(request *RefreshUserTokenRequest) (_resul
 	return _result, _err
 }
 
-/**
- * Description: 刷新用户登录态（线下环境使用）
- * Summary: 刷新用户登录态（线下环境使用）
- */
+// Description:
+//
+// Description: 刷新用户登录态（线下环境使用）
+//
+// Summary: 刷新用户登录态（线下环境使用）
 func (client *Client) RefreshUserTokenEx(request *RefreshUserTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefreshUserTokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6757,10 +8286,11 @@ func (client *Client) RefreshUserTokenEx(request *RefreshUserTokenRequest, heade
 	return _result, _err
 }
 
-/**
- * Description: 三方会员免密登录token删除
- * Summary: 三方会员免密登录token删除
- */
+// Description:
+//
+// Description: 三方会员免密登录token删除
+//
+// Summary: 三方会员免密登录token删除
 func (client *Client) DeleteTrustloginToken(request *DeleteTrustloginTokenRequest) (_result *DeleteTrustloginTokenResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6773,10 +8303,11 @@ func (client *Client) DeleteTrustloginToken(request *DeleteTrustloginTokenReques
 	return _result, _err
 }
 
-/**
- * Description: 三方会员免密登录token删除
- * Summary: 三方会员免密登录token删除
- */
+// Description:
+//
+// Description: 三方会员免密登录token删除
+//
+// Summary: 三方会员免密登录token删除
 func (client *Client) DeleteTrustloginTokenEx(request *DeleteTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteTrustloginTokenResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6791,10 +8322,11 @@ func (client *Client) DeleteTrustloginTokenEx(request *DeleteTrustloginTokenRequ
 	return _result, _err
 }
 
-/**
- * Description: 支付宝账号入驻到数科，同步接口
- * Summary: 支付宝账号入驻到数科
- */
+// Description:
+//
+// Description: 支付宝账号入驻到数科，同步接口
+//
+// Summary: 支付宝账号入驻到数科
 func (client *Client) CreateAlipayTenant(request *CreateAlipayTenantRequest) (_result *CreateAlipayTenantResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6807,10 +8339,11 @@ func (client *Client) CreateAlipayTenant(request *CreateAlipayTenantRequest) (_r
 	return _result, _err
 }
 
-/**
- * Description: 支付宝账号入驻到数科，同步接口
- * Summary: 支付宝账号入驻到数科
- */
+// Description:
+//
+// Description: 支付宝账号入驻到数科，同步接口
+//
+// Summary: 支付宝账号入驻到数科
 func (client *Client) CreateAlipayTenantEx(request *CreateAlipayTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAlipayTenantResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6825,10 +8358,11 @@ func (client *Client) CreateAlipayTenantEx(request *CreateAlipayTenantRequest, h
 	return _result, _err
 }
 
-/**
- * Description: 冻结操作员
- * Summary: 冻结操作员
- */
+// Description:
+//
+// Description: 冻结操作员
+//
+// Summary: 冻结操作员
 func (client *Client) FreezeOperator(request *FreezeOperatorRequest) (_result *FreezeOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6841,10 +8375,11 @@ func (client *Client) FreezeOperator(request *FreezeOperatorRequest) (_result *F
 	return _result, _err
 }
 
-/**
- * Description: 冻结操作员
- * Summary: 冻结操作员
- */
+// Description:
+//
+// Description: 冻结操作员
+//
+// Summary: 冻结操作员
 func (client *Client) FreezeOperatorEx(request *FreezeOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FreezeOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -6859,10 +8394,11 @@ func (client *Client) FreezeOperatorEx(request *FreezeOperatorRequest, headers m
 	return _result, _err
 }
 
-/**
- * Description: 解冻操作员
- * Summary: 解冻操作员
- */
+// Description:
+//
+// Description: 解冻操作员
+//
+// Summary: 解冻操作员
 func (client *Client) UnfreezeOperator(request *UnfreezeOperatorRequest) (_result *UnfreezeOperatorResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -6875,10 +8411,11 @@ func (client *Client) UnfreezeOperator(request *UnfreezeOperatorRequest) (_resul
 	return _result, _err
 }
 
-/**
- * Description: 解冻操作员
- * Summary: 解冻操作员
- */
+// Description:
+//
+// Description: 解冻操作员
+//
+// Summary: 解冻操作员
 func (client *Client) UnfreezeOperatorEx(request *UnfreezeOperatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnfreezeOperatorResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
